@@ -11,7 +11,7 @@
 ;; C-c C-l load file into slime
 
 (defun hello-world ()
-  (format t "hello world"))
+  (format t "hello there, world"))
 
 (defvar *db* nil)
 
