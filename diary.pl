@@ -60,7 +60,7 @@ sub mainloop
 
         display_day_so_far();
 
-        print("What> Add, Mod, Del, Whole-day, ch daTe, Rep, Quit (A,m,d,w,t,r,q): ");
+        print("What> Add, Mod, Del, Whole-day, ch daTe, Break, bacK, Rep, Quit (A,m,d,w,t,r,q): ");
         $cmd = <>;
         chomp($cmd);
 
@@ -86,6 +86,38 @@ sub mainloop
 
 	# add a single entry
         if ($cmd =~ /a/i) {
+	    my ($t, $p, $k);
+
+            printf("\n");
+            $t = get_a_time();
+            next if ($t =~ /ABORT/i);
+            $p = get_a_project();
+            next if ($p =~ /ABORT/i);
+            $k = get_a_task($p);
+            next if ($k =~ /ABORT/i);
+            $daydata{$t} = $k;
+            # save each change to minimise loss of data
+            save_day_so_far();
+        }
+
+	# take a break, like go get coffee or something
+        if ($cmd =~ /b/i) {
+	    my ($t, $p, $k);
+
+            printf("\n");
+            $t = get_a_time();
+            next if ($t =~ /ABORT/i);
+            $p = get_a_project();
+            next if ($p =~ /ABORT/i);
+            $k = get_a_task($p);
+            next if ($k =~ /ABORT/i);
+            $daydata{$t} = $k;
+            # save each change to minimise loss of data
+            save_day_so_far();
+        }
+
+	# resume where we were before the break
+        if ($cmd =~ /k/i) {
 	    my ($t, $p, $k);
 
             printf("\n");
